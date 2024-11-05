@@ -17,6 +17,7 @@ and explore the commands they can use in their Linux environment.
 
 - [Features](#features)
 - [Installation](#installation)
+- [Uninstall](Uninstall)
 - [Usage](#usage)
 - [Makefile](#makefile)
 - [Customization](#customization)
@@ -57,6 +58,12 @@ make install
 ```
 
 4. Follow the instructions provided after installation to update your PATH.
+
+## Uninstall 
+
+```bash
+make uninstall
+```
 
 ## Usage
 
@@ -116,7 +123,7 @@ Available Linux Commands:
 The project includes a Makefile to simplify the build and installation process. Here are the available commands:
 
 - `make build`: Compiles the project
-- `make install`: Installs the project to ~/commands and provides instructions for updating PATH
+- `make install`: Installs the project to ~/.commands and provides instructions for updating PATH
 - `make clean`: Removes build files
 - `make help`: Shows the help message with available commands
 

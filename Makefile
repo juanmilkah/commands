@@ -21,6 +21,13 @@ install: build
 	@echo "export PATH=\"\$$PATH:$(INSTALL_DIR)\""
 	@echo "After adding the line, run 'source <your-config-file>' or restart your terminal for the changes to take effect."
 
+# Uninstall the project
+uninstall:
+	rm -f $(INSTALL_DIR)/$(TARGET)
+	rm -f $(INSTALL_DIR)/$(LINUX_FILE)
+	@echo "Uninstalled $(TARGET) and $(LINUX_FILE) from $(INSTALL_DIR)"
+	@echo "You may also want to remove 'export PATH=\"\$$PATH:$(INSTALL_DIR)\"' from your shell configuration file."
+
 # Clean up build files
 clean:
 	cargo clean
@@ -30,6 +37,7 @@ help:
 	@echo "Makefile commands:"
 	@echo "  make build      - Compile the project"
 	@echo "  make install    - Install the project to $(INSTALL_DIR) and provide instructions for updating PATH"
+	@echo "  make uninstall  - Uninstall the project from $(INSTALL_DIR)"
 	@echo "  make clean      - Remove build files"
 	@echo "  make help       - Show this help message"
 
