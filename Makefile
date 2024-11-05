@@ -1,7 +1,7 @@
 # Makefile for setup
 # Define the name of the executable and the installation directory
 TARGET = commands
-INSTALL_DIR = ~/commands
+INSTALL_DIR = ~/.commands
 LINUX_FILE = linux
 
 # Default target
