@@ -124,6 +124,7 @@ The project includes a Makefile to simplify the build and installation process. 
 
 - `make build`: Compiles the project
 - `make install`: Installs the project to ~/.commands and provides instructions for updating PATH
+- `make uninstall`: Uninstalls the project from ~/.commands
 - `make clean`: Removes build files
 - `make help`: Shows the help message with available commands
 
