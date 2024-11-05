@@ -108,6 +108,11 @@ or
 commands --help
 ```
 
+4. To show less commands
+```bash
+commands -l | less
+```
+
 ### Example Output
 
 ```bash
