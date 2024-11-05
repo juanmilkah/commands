@@ -5,7 +5,6 @@ use std::path::PathBuf;
 use std::process::exit;
 
 fn main() {
-    draw_commands_ascii();
     let arguments: Vec<String> = args().collect();
     match arguments.as_slice() {
         [_] => handle_list_argument(),
@@ -20,6 +19,7 @@ fn handle_list_argument() {
     let filepath = get_file_path();
     if let Some(contents) = read_file(&filepath) {
         let lines: Vec<&str> = contents.lines().collect();
+        println!("AVAILABLE LINUX COMMANDS:");
         for line in lines {
             print_contents(&line);
         }
@@ -77,6 +77,7 @@ fn handle_search_exact_command(needle: &str) {
 }
 
 fn print_help() {
+    draw_commands_ascii();
     println!("Commands: Display and Search through linux commandline commands");
     println!("Usage: [-l] [-s <args>] [-h]");
     println!("-l , --list\n\tList all available commands");
