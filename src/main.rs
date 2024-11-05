@@ -1,9 +1,8 @@
 use std::env::{args, var};
 use std::fs::File;
-use std::io::{self as std_io, Read};
+use std::io::Read;
 use std::path::PathBuf;
 use std::process::exit;
-use term_size::dimensions;
 
 fn main() {
     draw_commands_ascii();
@@ -21,7 +20,9 @@ fn handle_list_argument() {
     let filepath = get_file_path();
     if let Some(contents) = read_file(&filepath) {
         let lines: Vec<&str> = contents.lines().collect();
-        gradual_print(&lines);
+        for line in lines {
+            print_contents(&line);
+        }
     } else {
         exit_with_error("Failed to read commands from file.");
     }
@@ -48,27 +49,6 @@ fn read_file(filepath: &str) -> Option<String> {
             exit_with_error(&format!("Error opening file: {}", e));
             None
         }
-    }
-}
-
-fn gradual_print(lines: &[&str]) {
-    let (_width, height) = dimensions().unwrap_or((80, 20)); // Fallback to 80x20
-    let max_lines = height - 1; // Reserve space for user input
-    let mut index = 0;
-    while index < lines.len() {
-        for i in index..(index + max_lines).min(lines.len()) {
-            println!("{}", lines[i]);
-        }
-        if index + max_lines >= lines.len() {
-            break; // No more lines to print
-        }
-        let mut buffer = [0; 1];
-        println!("Press 'q' to quit or any other key to continue...");
-        std_io::stdin().read_exact(&mut buffer).unwrap();
-        if buffer[0] == b'q' {
-            break;
-        }
-        index += max_lines;
     }
 }
 
