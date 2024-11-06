@@ -42,13 +42,13 @@ and explore the commands they can use in their Linux environment.
 1. Clone the repository:
 
 ```
-git clone https://github.com/juanmilkah/linux-command-search.git
+git clone https://github.com/juanmilkah/commands.git
 ```
 
 2. Navigate to the project directory:
 
 ```
-cd linux-command-search
+cd commands
 ```
 
 3. Use the Makefile to build and install the project (see [Makefile](#makefile) section for more details):
