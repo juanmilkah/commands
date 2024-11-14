@@ -31,7 +31,7 @@ fn handle_list_argument() {
 fn get_file_path() -> String {
     let home_dir = var("HOME").unwrap_or_else(|_| String::from("."));
     let mut path = PathBuf::from(home_dir);
-    path.push("commands/linux");
+    path.push(".commands/linux");
     path.to_str().unwrap().to_string()
 }
 
