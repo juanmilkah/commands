@@ -21,7 +21,7 @@ fn handle_list_argument() {
         let lines: Vec<&str> = contents.lines().collect();
         println!("AVAILABLE LINUX COMMANDS:");
         for line in lines {
-            print_contents(&line);
+            print_contents(line);
         }
     } else {
         exit_with_error("Failed to read commands from file.");
