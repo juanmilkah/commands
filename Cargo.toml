@@ -5,3 +5,4 @@ edition = "2021"
 authors = ["Juan Milkah <juanmilkah@gmail.com>"]
 
 [dependencies]
+clap = { version = "4.5.21", features = ["derive"] }

@@ -1,18 +1,49 @@
-use std::env::{args, var};
+use clap::Parser;
+use std::env::var;
 use std::fs::File;
 use std::io::Read;
 use std::path::PathBuf;
 use std::process::exit;
 
+#[derive(Parser, Debug)]
+#[command(version,long_about=None, about)]
+struct Args {
+    #[arg(short = 'l', long = "list")]
+    list: Option<String>,
+
+    #[arg(short = 's', long = "search")]
+    search: Option<String>,
+
+    #[arg(short = 'i', long = "ignorecase")]
+    ignorecase: bool,
+
+    #[arg(short = 'a', long = "ascii")]
+    ascii: bool,
+}
+
+enum Ignorecase {
+    True,
+    False,
+}
+
 fn main() {
-    let arguments: Vec<String> = args().collect();
-    match arguments.as_slice() {
-        [_] => handle_list_argument(),
-        [_, arg] if arg == "-l" || arg == "--list" => handle_list_argument(),
-        [_, arg, needle] if arg == "-s" || arg == "--search" => handle_search_exact_command(needle),
-        [_, arg] if arg == "-h" || arg == "--help" => print_help(),
-        _ => print_help(),
+    let arguments = Args::parse();
+
+    if arguments.ascii {
+        draw_commands_ascii();
     }
+
+    if let Some(val) = arguments.search {
+        if arguments.ignorecase {
+            handle_search_exact_command(&val, Ignorecase::True);
+            exit(0);
+        } else {
+            handle_search_exact_command(&val, Ignorecase::False);
+            exit(0);
+        }
+    }
+
+    handle_list_argument();
 }
 
 fn handle_list_argument() {
@@ -52,13 +83,20 @@ fn read_file(filepath: &str) -> Option<String> {
     }
 }
 
-fn handle_search_exact_command(needle: &str) {
+fn handle_search_exact_command(needle: &str, ignorecase: Ignorecase) {
     let filepath = get_file_path();
     if let Some(haystack) = read_file(&filepath) {
-        let found: Vec<&str> = haystack
-            .lines()
-            .filter(|line| line.to_lowercase().contains(&needle.to_lowercase()))
-            .collect();
+        let found: Vec<&str> = match ignorecase {
+            Ignorecase::True => haystack
+                .lines()
+                .filter(|line| line.to_lowercase().contains(&needle.to_lowercase()))
+                .collect(),
+            Ignorecase::False => haystack
+                .lines()
+                .filter(|line| line.contains(needle))
+                .collect(),
+        };
+
         if found.is_empty() {
             println!("NO COMMAND FOUND");
             return;
@@ -74,15 +112,6 @@ fn handle_search_exact_command(needle: &str) {
             print_contents(line);
         }
     }
-}
-
-fn print_help() {
-    draw_commands_ascii();
-    println!("Commands: Display and Search through linux commandline commands");
-    println!("Usage: [-l] [-s <args>] [-h]");
-    println!("-l , --list\n\tList all available commands");
-    println!("-s , --search <arg>\n\tSearch for argument in commands");
-    println!("-h , --help\n\tDisplay this help message");
 }
 
 fn exit_with_error(e: &str) {
@@ -102,7 +131,6 @@ fn draw_commands_ascii() {
 ██║     ██║   ██║██║╚██╔╝██║██║╚██╔╝██║██╔══██║██║╚██╗██║██║  ██║╚════██║
 ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║ ╚═╝ ██║██║  ██║██║ ╚████║██████╔╝███████║
  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝
-                                                                         
 ";
     println!("{}", text);
 }
