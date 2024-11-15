@@ -18,7 +18,7 @@ install: build
 	cp $(LINUX_FILE) $(INSTALL_DIR)/  # Copy the linux file to the installation directory
 	@echo "Installed to $(INSTALL_DIR)/$(TARGET) and $(INSTALL_DIR)/$(LINUX_FILE)"
 	@echo "Please add the following line to your shell configuration file (.bashrc, .bash_profile, or .zshrc):"
-	@echo "export PATH=\"\$$PATH:$(INSTALL_DIR)\""
+	@echo "export PATH=\$$PATH:$(INSTALL_DIR)"
 	@echo "After adding the line, run 'source <your-config-file>' or restart your terminal for the changes to take effect."
 
 # Uninstall the project
