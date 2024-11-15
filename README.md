@@ -59,7 +59,7 @@ make install
 
 4. Follow the instructions provided after installation to update your PATH.
 
-## Uninstall 
+## Uninstall
 
 ```bash
 make uninstall
@@ -99,18 +99,46 @@ or
 commands --search <search_term>
 ```
 
-3. Display help information:
+3. Ignorecase
+
+```bash
+commands -s <search_term> -i
+```
+
+4. Draw Ascii Art
+
+```bash
+commands -a
+```
+
+5. Display help information:
+
 ```bash
 commands -h
 ```
+
 or
+
 ```bash
 commands --help
 ```
 
-4. To show less commands
+6. To show less commands
+
 ```bash
 commands -l | less
+```
+
+7. Show the Version
+
+```bash
+commands -v
+```
+
+or
+
+```bash
+commands --version
 ```
 
 ### Example Output
